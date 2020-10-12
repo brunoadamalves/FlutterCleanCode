@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:numbertrivia/features/numberTrivia/data/repositories/get_concrete_number_trivia.dart';
 import 'package:numbertrivia/features/numberTrivia/domain/entities/number_trivia.dart';
 import 'package:numbertrivia/features/numberTrivia/domain/repositories/number_trivia_repository.dart';
+import 'package:numbertrivia/features/numberTrivia/domain/usecases/get_concrete_number_trivia.dart';
 
 class MockNumberTriviaRepository extends Mock
     implements NumberTriviaRepository {}
@@ -29,7 +29,7 @@ void main() {
       when(mockNumberTriviaRepository.getConcreteNumberTrivia(any))
           .thenAnswer((_) async => Right(tNumberTrivia));
       // The "act" phase of the test. Call the not-yet-existent method.
-      final result = await usecase.execute(number: tNumber);
+      final result = await usecase(Params(number: tNumber));
       // UseCase should simply return whatever was returned from the Repository
       expect(result, Right(tNumberTrivia));
       // Verify that the method has been called on the Repository
